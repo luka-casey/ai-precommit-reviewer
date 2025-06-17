@@ -1,0 +1,20 @@
+# Ignore local secrets
+**/appsettings.json
+
+# macOS
+.DS_Store
+
+# Build output
+bin/
+obj/
+
+# User secrets
+*.user
+*.suo
+
+# Rider/VS Code project settings
+.idea/
+.vscode/
+
+# app settings with secrets for development
+**/appsettings.Development.json
