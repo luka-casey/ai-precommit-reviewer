@@ -1,0 +1,6 @@
+@CodeReviewApi_HostAddress = http://localhost:5221
+
+GET {{CodeReviewApi_HostAddress}}/CodeReviewApi/
+Accept: application/json
+
+###
