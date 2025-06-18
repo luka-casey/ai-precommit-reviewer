@@ -9,7 +9,7 @@ public class test
     
     public static string WhatDayIsIt()
     {
-        return "Ground hog day";
+        return "Ready steady cook";
     }
     
 }

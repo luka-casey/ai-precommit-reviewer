@@ -2,13 +2,15 @@ namespace CodeReviewApi;
 
 public class FilePayload
 {
-    public FilePayload(string body, string fileName)
+    public FilePayload(string body, string? beforeFileName, string? afterFileName)
     {
         Body = body;
-        FileName = fileName;
+        BeforeFileName = beforeFileName;
+        AfterFileName = afterFileName;
     }
     
     public string Body { get; }
-    public string FileName { get; }
+    public string? BeforeFileName { get; }
+    public string? AfterFileName { get; }
     
 }

@@ -6,10 +6,48 @@ namespace CodeReviewApi;
 
 public class GitDiffUtilities
 {
-    public static string StripGitDiffMetadata(string diffContent)
+    public static List<GitCommitFilePayload> CreateGitDiffCollectionPayload(string gitStagedDiffFile)
+    {
+        //Extract gitStagedDiffFile into a String
+        string fullDiffContent = System.IO.File.ReadAllText(gitStagedDiffFile);
+            
+        //Split into a string[] seperated by files changed
+        string[] files = GitDiffUtilities.ExtractMultipleFiles(fullDiffContent);
+            
+        List<GitCommitFilePayload> gitDiffCollectionPayload = new List<GitCommitFilePayload>();
+            
+        foreach (string file in files)
+        {
+            // create Before, 
+            string beforeContent = GitDiffUtilities.ExtractBeforeAfterContent(file, isBefore: true);
+            string beforeFileName = GitDiffUtilities.ExtractFileNameFromDiff(file, isBefore: true);
+            FilePayload beforeFileObject = new FilePayload(beforeContent, beforeFileName, null);
+
+            // create After, 
+            string afterContent = GitDiffUtilities.ExtractBeforeAfterContent(file, isBefore: false);
+            string afterFileName = GitDiffUtilities.ExtractFileNameFromDiff(file, isBefore: false);
+            FilePayload afterFileObject = new FilePayload(afterContent, null, afterFileName);
+                
+            // create Inline,
+            string inlineFile = GitDiffUtilities.ExtractInlineContent(file);
+            FilePayload inlineFileObject = new FilePayload(inlineFile, inlineFile, afterFileName);
+
+            // create bundle payload object for single File Change
+            var gitCommitFilePayload = new GitCommitFilePayload(
+                inlineDiff: inlineFileObject,
+                beforeContent: beforeFileObject,
+                afterContent: afterFileObject
+            );
+
+            gitDiffCollectionPayload.Add(gitCommitFilePayload);
+        }
+        
+        return gitDiffCollectionPayload;
+    }
+    
+    private static string ExtractInlineContent(string diffContent)
     {
         var sb = new StringBuilder();
-
         using var reader = new StringReader(diffContent);
 
         string? line;
@@ -18,20 +56,18 @@ public class GitDiffUtilities
             if (string.IsNullOrWhiteSpace(line))
                 continue;
 
-            if (line.StartsWith("--- ") || line.StartsWith("+++ "))
-            {
-                sb.AppendLine(line);
-                continue;
-            }
-
+            // Skip metadata lines
             if (line.StartsWith("diff --git") ||
                 line.StartsWith("index ") ||
                 line.StartsWith("@@") ||
-                line.StartsWith("\\ No newline"))
+                line.StartsWith("\\ No newline") ||
+                line.StartsWith("--- ") ||  // 👈 now stripping
+                line.StartsWith("+++ "))    // 👈 now stripping
             {
                 continue;
             }
 
+            // Keep only code lines
             if (line.StartsWith(" ") || line.StartsWith("+") || line.StartsWith("-"))
             {
                 sb.AppendLine(line);
@@ -41,8 +77,7 @@ public class GitDiffUtilities
         return sb.ToString();
     }
 
-    
-    public static string ExtractBeforeAfterContent(string diff, bool isBefore)
+    private static string ExtractBeforeAfterContent(string diff, bool isBefore)
     {
         var sb = new StringBuilder();
         var lines = diff.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
@@ -86,7 +121,7 @@ public class GitDiffUtilities
         return sb.ToString();
     }
     
-    public static string ExtractFileNameFromDiff(string diff, bool isBefore)
+    private static string ExtractFileNameFromDiff(string diff, bool isBefore)
     {
         var lines = diff.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -128,7 +163,10 @@ public class GitDiffUtilities
         File.WriteAllText(outputPath, output);
     }
     
-    public static string[] ExtractMultipleFiles(string fullDiffContent)
+    /// <summary>
+    /// Turns your git_staged_diff.txt into a string[] seperated by code file change
+    /// </summary>
+    private static string[] ExtractMultipleFiles(string fullDiffContent)
     {
         try
         {
@@ -144,7 +182,6 @@ public class GitDiffUtilities
             throw;
         }
     }
-
 
 
 }
