@@ -7,7 +7,7 @@ public class test
          return 25;
      }
     
-    public override string ToString()
+    public static string WhatDayIsIt()
     {
         return "Ground hog day";
     }
