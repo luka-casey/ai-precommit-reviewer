@@ -1,4 +1,3 @@
-// CodeReviewPage.tsx
 import React, { useState, useEffect } from 'react';
 import type { GitCommitFilePayload } from './interfaces/GitCommitFilePayload';
 import { GitDiffViewer } from './GitDiffViewer';
@@ -30,7 +29,6 @@ export const CodeReviewPage: React.FC = () => {
         <GitDiffViewer
           key={index}
           file={file}
-          index={index}
           showInline={viewModes[index] ?? true}
           onToggle={() => toggleView(index)}
         />

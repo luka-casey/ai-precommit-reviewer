@@ -80,17 +80,6 @@ button:focus-visible {
   background-color: rgb(86, 86, 86);
 }
 
-.inlineButtonSend {
-  background-color: white;
-  padding: 0%;
-  border-color: transparent;
-  border-radius: 50px;
-}
-.inlineButtonSend:hover {
-  border-color: transparent;
-  background-color: rgb(164, 164, 164);
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
