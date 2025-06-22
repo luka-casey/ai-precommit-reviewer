@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { GitCommitFilePayload } from './interfaces/GitCommitFilePayload';
-import { GitDiffViewer } from './GitDiffViewer';
-import { fetchGitDiff } from './Clients';
+import { GitDiffViewer } from './coreComponents/GitDiffViewer/GitDiffViewer';
+import { fetchGitDiff } from './clients/Clients';
 
 export const CodeReviewPage: React.FC = () => {
   const [diff, setDiff] = useState<GitCommitFilePayload[]>([]);
@@ -20,9 +20,8 @@ export const CodeReviewPage: React.FC = () => {
     // if prev[index] is undefined, treat it as `true` then flip to `false`
     [index]: !(prev[index] ?? true),
   }));
+
 };
-
-
   return (
     <div style={{ padding: '1rem' }}>
       {diff.map((file, index) => (

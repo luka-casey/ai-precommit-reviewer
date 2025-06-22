@@ -1,6 +1,6 @@
 import React from 'react';
-import { DiffBlock } from './DiffBlock';
-import type { GitCommitFilePayload } from './interfaces/GitCommitFilePayload';
+import { DiffBlock } from '../DiffBlock/DiffBlock';
+import type { GitCommitFilePayload } from '../../interfaces/GitCommitFilePayload';
 
 type DiffMode = 'inline' | 'side-by-side';
 

@@ -1,14 +1,13 @@
-import './LoaderStyles.css'
 import './GitDiffViewerStyles.css'
 import React, { useState } from 'react';
-import { getAiResponseMessage } from './Clients';
-import { DiffHeader } from './DiffHeader';
-import { AiResponse } from './AiResponse';
-import { UnifiedDiffView } from './UnifiedDiffView';
+import { getAiResponseMessage } from '../../clients/Clients';
+import { DiffHeader } from '../DiffHeader/DiffHeader';
+import { AiResponse } from '../AiResponse/AiResponse';
+import { UnifiedDiffView } from '../UnifiedDiffView/UnifiedDiffView';
 import { type SelectChangeEvent } from '@mui/material';
-import type { GitCommitFilePayload } from './interfaces/GitCommitFilePayload';
-import { ModelDropDown } from './ModelDropDown';
-import { SendToAiButton } from './SendToAiButton';
+import type { GitCommitFilePayload } from '../../interfaces/GitCommitFilePayload';
+import { ModelDropDown } from '../ModelDropDown/ModelDropDown';
+import { SendToAiButton } from '../SendToAiBitton/SendToAiButton';
 
 interface GitDiffViewerProps {
   file: GitCommitFilePayload;
@@ -80,5 +79,3 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
       </div>
   );
 };
-
-
