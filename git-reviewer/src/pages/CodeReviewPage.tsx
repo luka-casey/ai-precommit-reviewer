@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import type { GitCommitFilePayload } from './interfaces/GitCommitFilePayload';
-import { GitDiffViewer } from './coreComponents/GitDiffViewer/GitDiffViewer';
-import { fetchGitDiff } from './clients/Clients';
+import type { GitCommitFilePayload } from '../interfaces/GitCommitFilePayload';
+import { GitDiffViewer } from '../coreComponents/GitDiffViewer/GitDiffViewer';
+import { fetchGitDiff } from '../clients/Clients';
 
 export const CodeReviewPage: React.FC = () => {
   const [diff, setDiff] = useState<GitCommitFilePayload[]>([]);
