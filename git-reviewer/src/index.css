@@ -2,7 +2,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  /* max-width: 100vh; */
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -23,11 +23,12 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  /* margin: 0; */
+  /* display: flex; */
+  /* place-items: center; */
+  /* min-width: 320px;
+  max-width: 100vh;
+  min-height: 100vh; */
 }
 
 h1 {
@@ -35,8 +36,12 @@ h1 {
   line-height: 1.1;
 }
 
+
+
+
+
 button {
-  border-radius: 8px;
+  /* border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
@@ -44,14 +49,46 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s; */
 }
 button:hover {
-  border-color: #646cff;
+  /* border-color: #646cff; */
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  /* outline: 4px auto #1a1a1a; */
+}
+
+.sendButton {
+  color: #1a1a1a;
+  background-color: white;
+}
+
+.sendButton:hover {
+  background-color: rgb(206, 206, 206);
+  border-color: white;
+}
+
+.inlineButton {
+  background-color: transparent;
+  padding: 0%;
+  border-color: transparent;
+  border-radius: 50px;
+}
+.inlineButton:hover {
+  border-color: transparent;
+  background-color: rgb(86, 86, 86);
+}
+
+.inlineButtonSend {
+  background-color: white;
+  padding: 0%;
+  border-color: transparent;
+  border-radius: 50px;
+}
+.inlineButtonSend:hover {
+  border-color: transparent;
+  background-color: rgb(164, 164, 164);
 }
 
 @media (prefers-color-scheme: light) {

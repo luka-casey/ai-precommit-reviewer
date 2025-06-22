@@ -1,57 +1,40 @@
-import React, { useEffect, useState } from 'react';
-
-interface ReviewResponse {
-  content: string;
-}
+// CodeReviewPage.tsx
+import React, { useState, useEffect } from 'react';
+import type { GitCommitFilePayload } from './interfaces/GitCommitFilePayload';
+import { GitDiffViewer } from './GitDiffViewer';
+import { fetchGitDiff } from './Clients';
 
 export const CodeReviewPage: React.FC = () => {
-  const [diff, setDiff] = useState('');
-  const [review, setReview] = useState<null | string>(null);
-  const [loading, setLoading] = useState(false);
+  const [diff, setDiff] = useState<GitCommitFilePayload[]>([]);
+  // Track view mode (true = inline, false = before/after) per file index
+  const [viewModes, setViewModes] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
-    fetch('http://localhost:5221/gitdiff') // Adjust port if needed
-      .then((res) => {
-        if (!res.ok) throw new Error('No staged diff found');
-        return res.json();
-      })
-      .then((data) => setDiff(data.diff))
+    fetchGitDiff()
+      .then(setDiff)
       .catch((err) => console.error(err));
   }, []);
 
-  const handleReview = async () => {
-    setLoading(true);
-    setReview(null);
+  const toggleView = (index: number) => {
+    setViewModes(prev => ({
+    ...prev,
+    // if prev[index] is undefined, treat it as `true` then flip to `false`
+    [index]: !(prev[index] ?? true),
+  }));
+};
 
-    const res = await fetch('http://localhost:5221/codereview', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code: diff }),
-    });
-
-    const data = await res.json();
-    const aiResponse = data.choices?.[0]?.message?.content || 'No suggestions received.';
-    setReview(aiResponse);
-    setLoading(false);
-  };
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'monospace' }}>
-      <h2>🔍 Staged Git Diff</h2>
-      <pre style={{ background: '#eee', padding: '1rem', maxHeight: '300px', overflowY: 'scroll' }}>
-        {diff || 'Loading...'}
-      </pre>
-
-      <button onClick={handleReview} disabled={loading || !diff} style={{ marginTop: '1rem' }}>
-        {loading ? 'Reviewing...' : 'Send to AI Reviewer'}
-      </button>
-
-      {review && (
-        <>
-          <h3>💡 AI Suggestions</h3>
-          <pre style={{ background: '#f5f5f5', padding: '1rem' }}>{review}</pre>
-        </>
-      )}
+    <div style={{ padding: '1rem' }}>
+      {diff.map((file, index) => (
+        <GitDiffViewer
+          key={index}
+          file={file}
+          index={index}
+          showInline={viewModes[index] ?? true}
+          onToggle={() => toggleView(index)}
+        />
+      ))}
     </div>
   );
 };

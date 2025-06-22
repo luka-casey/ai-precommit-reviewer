@@ -30,9 +30,9 @@ public class GitDiffUtilities
                 
             // create Inline,
             string inlineFile = GitDiffUtilities.ExtractInlineContent(file);
-            FilePayload inlineFileObject = new FilePayload(inlineFile, inlineFile, afterFileName);
+            FilePayload inlineFileObject = new FilePayload(inlineFile, beforeFileName, afterFileName);
 
-            // create bundle payload object for single File Change
+            // create gitCommitFilePayload object 
             var gitCommitFilePayload = new GitCommitFilePayload(
                 inlineDiff: inlineFileObject,
                 beforeContent: beforeFileObject,

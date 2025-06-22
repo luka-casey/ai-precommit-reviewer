@@ -12,6 +12,7 @@ public class GitDiffController : ControllerBase
         // Update git Staged Diff file
         GitDiffUtilities.WriteStagedDiffToFile();
         
+        // macOS location
         const string gitStagedDiffFile = "/tmp/git_staged_diff.txt";
         
         if (!System.IO.File.Exists(gitStagedDiffFile))
