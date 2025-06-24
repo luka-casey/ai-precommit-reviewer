@@ -8,7 +8,7 @@ export const CodeReviewPage: React.FC = () => {
   // Track view mode (true = inline, false = before/after) per file index
   const [viewModes, setViewModes] = useState<Record<number, boolean>>({});
 
-  useEffect(() => {
+  useEffect(() => { // test comment
     fetchGitDiff()
       .then(setDiff)
       .catch((err) => console.error(err));
@@ -23,7 +23,7 @@ export const CodeReviewPage: React.FC = () => {
 
 };
   return (
-    <div style={{ padding: '1rem' }}>
+    <div style={{ padding: '1rem' }}> 
       {diff.map((file, index) => (
         <GitDiffViewer
           key={index}
