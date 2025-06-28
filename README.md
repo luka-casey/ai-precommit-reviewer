@@ -36,11 +36,11 @@ A developer tool that attempts to integrate LLM code reviews into your workflow,
 
 ```
 # Backend
-cd backend-api/CodeReviewApi
+cd ReviewerApi
 dotnet restore
 
 # Frontend
-cd ../../git-reviewer
+cd ReviewerUI
 npm install
 ```
 
