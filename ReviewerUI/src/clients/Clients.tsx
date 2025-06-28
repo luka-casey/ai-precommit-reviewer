@@ -1,3 +1,4 @@
+import type OpenAI from "openai";
 import type { CodeReviewRequest } from "../requestInterfaces/RequestInterfaces";
 import type { GitCommitFilePayload } from "../requestInterfaces/RequestInterfaces";
 
@@ -15,7 +16,13 @@ export async function fetchGitDiff(): Promise<GitCommitFilePayload[]> {
   return res.json();
 }
 
-export async function getAiResponseMessage(request: CodeReviewRequest): Promise<any> {
+/**
+ * Sends the code change to the ReviewerApi and returns an OpenAI response Object.
+ *
+ * @returns {Promise<OpenAI.Chat.Completions.ChatCompletion>} A promise that resolves to a list of Git commit file payloads.
+ * @throws {Error} If the response is not OK or the fetch fails.
+ */
+export async function getAiResponseMessage(request: CodeReviewRequest): Promise<OpenAI.Chat.Completions.ChatCompletion> {
 
   console.log(request.GptModel)
   const res = await fetch('http://localhost:5221/codereview', {

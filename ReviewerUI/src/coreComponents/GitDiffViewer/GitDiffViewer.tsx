@@ -17,12 +17,12 @@ interface GitDiffViewerProps {
 }
 
 export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, onToggle }) => {
-  const [minimized, setMinimized] = useState(false);
+  const [minimized, setMinimized] = useState<boolean>(false);
   const [response, setResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [aiModel, setAIModel] = useState('gpt-3.5-turbo');
-  const [comment, setComment] = useState("");
-  const [preComment, setPreComment] = useState("");
+  const [aiModel, setAIModel] = useState<string>('gpt-3.5-turbo');
+  const [comment, setComment] = useState<string>("");
+  const [preComment, setPreComment] = useState<string>("");
 
   const sendToAi = (body: string) => {
     setLoading(true);

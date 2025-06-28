@@ -10,7 +10,7 @@ interface AiResponseProps {
 }
 
 export const AiResponse: React.FC<AiResponseProps> = ({comment, response }) => {
-  const [showComment, setShowComment] = useState(false);
+  const [showComment, setShowComment] = useState<boolean>(false);
 
   const delaySpeed: number = 0
   const typeSpeed: number = 1
@@ -50,7 +50,7 @@ interface TypewriterMarkdownProps {
 const typedResponses = new Set<string>();
 
 const TypewriterMarkdown: React.FC<TypewriterMarkdownProps> = ({ text, typeSpeed, delaySpeed }) => {
-  const [isDone, setIsDone] = useState(typedResponses.has(text));
+  const [isDone, setIsDone] = useState<boolean>(typedResponses.has(text));
 
   const [twText] = useTypewriter({
     words: [text],

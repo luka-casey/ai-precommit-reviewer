@@ -8,7 +8,7 @@ interface DiffBlockProps {
 }
 
 export const DiffBlock: React.FC<DiffBlockProps> = ({ text, diffType }) => {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<boolean>(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(text)
