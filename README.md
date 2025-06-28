@@ -6,6 +6,8 @@ A developer tool that attempts to integrate LLM code reviews into your workflow,
   <img src="https://github.com/user-attachments/assets/ecbdbb89-07d0-463e-ab2e-8743f6d24d26" alt="ai-precommit-reviewer screenshot" width="80%">
 </p>
 
+- Organises your git staged changes into swagger-style collapsable rows that can be sent for AI review.
+- Press send without a comment for a general review, or leave a comment for specificity. 
 ---
 
 ## Prerequisites
@@ -25,11 +27,21 @@ A developer tool that attempts to integrate LLM code reviews into your workflow,
 ```
 
 **2. Enter your OpenAi API key**
-- Enter your API key in ai-precommmit-reviewer/ReviewerApi/appsettings.json
+- Create file and enter your API key in ai-precommmit-reviewer/ReviewerApi/appsettings.json
 ```
-"OpenAI": {
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "OpenAI": {
     "ApiKey": "YOUR_OPENAI_API_KEY"
   }
+}
+
 ```
 
 **3. Install dependencies**
