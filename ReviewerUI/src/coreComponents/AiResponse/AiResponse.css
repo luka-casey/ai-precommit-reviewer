@@ -1,7 +1,22 @@
+.AiResponseContainer {
+  background-color: rgb(51, 51, 51);
+  flex: 1;
+  margin: 10px;
+  border-radius: 30px;
+}
+
+.AiResponse {
+  padding: 30px;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
@@ -11,4 +26,8 @@
 
 .fade-in {
   animation: fadeIn 1s ease-out forwards;
+}
+
+.react-simple-typewriter__cursor {
+  display: none; /* disable blinking cursor */
 }
