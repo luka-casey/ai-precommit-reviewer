@@ -6,6 +6,8 @@ A developer tool that attempts to integrate LLM code reviews into your workflow,
   <img src="https://github.com/user-attachments/assets/ecbdbb89-07d0-463e-ab2e-8743f6d24d26" alt="ai-precommit-reviewer screenshot" width="80%">
 </p>
 
+- Pressing send without a comment will provide a review of your code with the prompt...
+  `You are an Ai code-reviewer, responsible for initially reviewing code prior to a human code review. Please review the following code. Avoid suggesting inconsequential changes and keep responses short where there is not anything to change`
 ---
 
 ## Prerequisites
