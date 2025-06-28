@@ -25,11 +25,21 @@ A developer tool that attempts to integrate LLM code reviews into your workflow,
 ```
 
 **2. Enter your OpenAi API key**
-- Enter your API key in ai-precommmit-reviewer/ReviewerApi/appsettings.json
+- Create file and enter your API key in ai-precommmit-reviewer/ReviewerApi/appsettings.json
 ```
-"OpenAI": {
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "OpenAI": {
     "ApiKey": "YOUR_OPENAI_API_KEY"
   }
+}
+
 ```
 
 **3. Install dependencies**
