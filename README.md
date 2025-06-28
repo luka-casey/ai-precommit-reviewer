@@ -1,11 +1,11 @@
 Setup Guide:
 
-1) Create API key
+1) **Create API key**
 - Sign up and create an OpenAI API at https://platform.openai.com/api-keys
 - Enter your API key in ai-precommmit-reviewer/backend-api/CodeReviewApi/appsettings.json
 
 
-2) Configure pre-commit hook (optional)
+2) **Configure pre-commit hook** (optional)
 *This creates a commandline hook that opens the app prior to a git commit.
 This is optional and has problems working in IDE's where the terminal may be read only.
 Recommended to be used in a non-inbuild terminal like iterm2*
@@ -36,6 +36,6 @@ while true; do
 done
 ```
 
-3. Start both ends
+3. **Run** 
 - enter `dotnet run` in ai-precommit-reviewer/backend-api/CodeReviewApi
 - enter `npm run dev` in ai-precommit-reviewer/git-reviewer
