@@ -25,7 +25,7 @@ A developer tool that attempts to integrate LLM code reviews into your workflow,
 ```
 
 **2. Enter your OpenAi API key**
-- Enter your API key in ai-precommmit-reviewer/backend-api/CodeReviewApi/appsettings.json
+- Enter your API key in ai-precommmit-reviewer/ReviewerApi/appsettings.json
 ```
 "OpenAI": {
     "ApiKey": "YOUR_OPENAI_API_KEY"
