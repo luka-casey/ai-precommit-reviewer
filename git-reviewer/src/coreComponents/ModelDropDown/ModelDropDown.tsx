@@ -9,7 +9,7 @@ interface ModelDropDownProps {
 export const ModelDropDown: React.FC<ModelDropDownProps> = ({ aiModel, handleChange }) => {
   return (
     <div style={{marginRight: '20px'}}>
-    <FormControl variant="outlined" fullWidth style={{ minWidth: '120px' }}>
+    <FormControl  variant="outlined" fullWidth style={{ minWidth: '120px' }}>
       <InputLabel id="my-select-label" style={{ color: 'white' }}>Model</InputLabel>
       <Select labelId="my-select-label" value={aiModel} onChange={handleChange} label="Option"
         sx={{

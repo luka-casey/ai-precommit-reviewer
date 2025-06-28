@@ -18,9 +18,17 @@ public class CodeReviewController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Review([FromBody] CodeReviewRequest request)
     {
-        var prompt = $"You are an Ai code-reviewer, responsible for initially reviewing code " +
+        string prompt;
+        if (request.Comment == String.Empty)
+        {
+            prompt = $"You are an Ai code-reviewer, responsible for initially reviewing code " +
                      $"prior to a human code review. Please review the following code. " +
                      $"Avoid suggesting inconsequential changes and keep responses short where there is not anything to change :\n\n{request.Code}";
+        }
+        else
+        {
+            prompt = $"{request.Comment} :\n\n{request.Code}";
+        }
         
         var body = new
         {
@@ -42,4 +50,5 @@ public class CodeReviewRequest
 {
     public string? Code { get; set; }
     public string GptModel { get; set; }
+    public string Comment { get; set; }    
 }

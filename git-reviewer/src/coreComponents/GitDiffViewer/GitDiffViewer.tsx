@@ -8,6 +8,7 @@ import { type SelectChangeEvent } from '@mui/material';
 import type { GitCommitFilePayload } from '../../interfaces/GitCommitFilePayload';
 import { ModelDropDown } from '../ModelDropDown/ModelDropDown';
 import { SendToAiButton } from '../SendToAiBitton/SendToAiButton';
+import { TextInput } from '../TextInput/TextInput';
 
 interface GitDiffViewerProps {
   file: GitCommitFilePayload;
@@ -19,13 +20,19 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
   const [minimized, setMinimized] = useState(false);
   const [response, setResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [aiModel, setAIModel] = useState('gpt-4o-mini');
+  const [aiModel, setAIModel] = useState('gpt-3.5-turbo');
+  const [comment, setComment] = useState("");
+  const [preComment, setPreComment] = useState("");
 
   const sendToAi = (body: string) => {
     setLoading(true);
+    setPreComment(comment)
 
-    getAiResponseMessage({ Code: body, GptModel: aiModel })
-      .then(r => setResponse(r.choices?.[0]?.message?.content || ""))
+    getAiResponseMessage({ Code: body, GptModel: aiModel, Comment: comment })
+      .then(r => {
+        setResponse(r.choices?.[0]?.message?.content || "")
+        
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   };
@@ -66,7 +73,8 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
 
             <div style={{display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-end'}}>
               <ModelDropDown aiModel={aiModel} handleChange={handleChange} />
-              <SendToAiButton sendToAi={sendToAi} file={file} loading={loading} />
+              <TextInput text={comment} setText={setComment} />
+              <SendToAiButton isInline={showInline} sendToAi={sendToAi} file={file} loading={loading} />
             </div>
 
           </>
@@ -74,7 +82,7 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
       </div>
       
       {!minimized && (
-      <AiResponse response={response}/>
+      <AiResponse comment={preComment} response={response}/>
       )}
       </div>
   );
