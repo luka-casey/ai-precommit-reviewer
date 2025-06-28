@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useTypewriter } from 'react-simple-typewriter';
-import './AiResponse.css'
+import './AiResponseStyles.css'
 
 interface AiResponseProps {
   comment: string;
