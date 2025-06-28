@@ -1,5 +1,5 @@
-import type { CodeReviewRequest } from "../interfaces/CodeReviewRequest";
-import type { GitCommitFilePayload } from "../interfaces/GitCommitFilePayload";
+import type { CodeReviewRequest } from "../requestInterfaces/RequestInterfaces";
+import type { GitCommitFilePayload } from "../requestInterfaces/RequestInterfaces";
 
 /**
  * Fetches the Git changes from the backend API and returns them as a formatted array.

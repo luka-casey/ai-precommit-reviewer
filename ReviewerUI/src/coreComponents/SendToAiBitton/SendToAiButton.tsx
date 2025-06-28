@@ -1,6 +1,6 @@
 import React from 'react';
 import { Loader2, MessageSquareShare } from 'lucide-react';
-import type { GitCommitFilePayload } from '../../interfaces/GitCommitFilePayload';
+import type { GitCommitFilePayload } from '../../requestInterfaces/RequestInterfaces';
 
 interface SendToAiButtonProps {
   sendToAi: (content: string) => void;
