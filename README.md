@@ -1,17 +1,55 @@
-Setup Guide:
+# ai-precommit-reviewer
 
-1) **Create API key**
-- Sign up and create an OpenAI API at https://platform.openai.com/api-keys
+A developer tool that attempts to integrate LLM code reviews into your workflow, helping you catch and improve issues before they ever reach a human reviewer.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ecbdbb89-07d0-463e-ab2e-8743f6d24d26" alt="ai-precommit-reviewer screenshot" width="80%">
+</p>
+
+---
+
+## Prerequisites
+
+- [.NET SDK](https://dotnet.microsoft.com/download) (for the backend API)  
+- [Node.js](https://nodejs.org/) (for the frontend)  
+- An [OpenAI API key](https://platform.openai.com/api-keys)  
+
+---
+
+## Installation and Setup
+
+**1. Clone the repo**  
+ ```bash
+ git clone https://github.com/luka-casey/ai-precommit-reviewer
+ cd ai-precommit-reviewer
+```
+
+**2. Enter your OpenAi API key**
 - Enter your API key in ai-precommmit-reviewer/backend-api/CodeReviewApi/appsettings.json
+```
+"OpenAI": {
+    "ApiKey": "YOUR_OPENAI_API_KEY"
+  }
+```
 
+**3. Install dependencies**
 
-2) **Configure pre-commit hook** (optional)
-*This creates a commandline hook that opens the app prior to a git commit.
+```
+# Backend
+cd backend-api/CodeReviewApi
+dotnet restore
+
+# Frontend
+cd ../../git-reviewer
+npm install
+```
+
+**4. (Optional) Pre‑commit Hook**
+- _(This creates a commandline hook that opens the app prior to a git commit.
 This is optional and has problems working in IDE's where the terminal may be read only.
-Recommended to be used in a non-inbuild terminal like iterm2*
+Recommended to be used in a non-inbuild terminal like iterm2)_
 
-- Navigate to ai-precommmit-reviewer/.git/hooks/pre-commit
-- Insert the following script
+- Copy the following into .git/hooks/pre-commit
 
 ```
 #!/bin/bash
@@ -36,6 +74,6 @@ while true; do
 done
 ```
 
-3. **Run** 
+**5. Run** 
 - enter `dotnet run` in ai-precommit-reviewer/backend-api/CodeReviewApi
 - enter `npm run dev` in ai-precommit-reviewer/git-reviewer
