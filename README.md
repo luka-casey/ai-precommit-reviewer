@@ -75,5 +75,5 @@ done
 ```
 
 **5. Run** 
-- enter `dotnet run` in ai-precommit-reviewer/backend-api/CodeReviewApi
-- enter `npm run dev` in ai-precommit-reviewer/git-reviewer
+- enter `dotnet run` in ai-precommit-reviewer/ReviewerApi
+- enter `npm run dev` in ai-precommit-reviewer/ReviewerUI
