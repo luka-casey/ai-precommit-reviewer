@@ -61,7 +61,7 @@ npm install
 This is optional and has problems working in IDE's where the terminal may be read only.
 Recommended to be used in a non-inbuild terminal like iterm2)_
 
-- Copy the following into .git/hooks/pre-commit
+- Copy the following script into the .git/hooks/pre-commit file of any project you wish to enable it for.
 
 ```
 #!/bin/bash
