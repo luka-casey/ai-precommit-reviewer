@@ -59,7 +59,7 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
               : <UnifiedDiffView mode={'side-by-side'} before={file.beforeContent} after={file.afterContent} /> 
             }
 
-            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-end'}}>
+            <div className='actionComponentsContainer'>
               <ModelDropDown aiModel={aiModel} handleChange={handleChange} />
               <TextInput text={comment} setText={setComment} />
               <SendToAiButton isInline={showInline} sendToAi={sendToAi} file={file} loading={loading} />

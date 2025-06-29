@@ -5,10 +5,9 @@ import { fetchGitDiff } from '../clients/Clients';
 
 export const CodeReviewPage: React.FC = () => {
   const [diff, setDiff] = useState<GitCommitFilePayload[]>([]);
-  // Track view mode (true = inline, false = before/after) per file index
   const [viewModes, setViewModes] = useState<Record<number, boolean>>({});
 
-  useEffect(() => { // test comment
+  useEffect(() => { 
     fetchGitDiff()
       .then(setDiff)
       .catch((err) => console.error(err));
@@ -17,7 +16,6 @@ export const CodeReviewPage: React.FC = () => {
   const toggleView = (index: number) => {
     setViewModes(prev => ({
     ...prev,
-    // if prev[index] is undefined, treat it as `true` then flip to `false`
     [index]: !(prev[index] ?? true),
   }));
 
