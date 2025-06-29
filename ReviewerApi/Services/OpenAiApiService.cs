@@ -1,6 +1,6 @@
-namespace CodeReviewApi;
+namespace CodeReviewApi.Services;
 
-public class GptApiUtilities
+public class OpenAiApiService
 {
     public static string ValidateModel(string model) =>
         model switch

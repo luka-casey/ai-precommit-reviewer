@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -16,14 +15,12 @@ public class CodeReviewController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Review([FromBody] CodeReviewRequest request)
+    public async Task<IActionResult> Review([FromBody] CodeReviewApi.Models.CodeReviewRequest request)
     {
         string prompt;
-        if (request.Comment == String.Empty)
+        if (String.IsNullOrEmpty(request.Comment))
         {
-            prompt = $"You are an Ai code-reviewer, responsible for initially reviewing code " +
-                     $"prior to a human code review. Please review the following code. " +
-                     $"Avoid suggesting inconsequential changes and keep responses short where there is not anything to change :\n\n{request.Code}";
+            prompt = $"Please review the following code. Avoid suggesting inconsequential changes and keep responses short where there is not anything to change :\n\n{request.Code}";
         }
         else
         {
@@ -32,7 +29,7 @@ public class CodeReviewController : ControllerBase
         
         var body = new
         {
-            model = GptApiUtilities.ValidateModel(request.GptModel), 
+            model = CodeReviewApi.Services.OpenAiApiService.ValidateModel(request.GptModel), 
             messages = new[]
             {
                 new { role = "user", content = prompt }
@@ -44,11 +41,4 @@ public class CodeReviewController : ControllerBase
 
         return Ok(JsonDocument.Parse(json));
     }
-}
-
-public class CodeReviewRequest
-{
-    public string? Code { get; set; }
-    public string GptModel { get; set; }
-    public string Comment { get; set; }    
 }

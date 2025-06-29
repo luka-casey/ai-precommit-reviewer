@@ -1,12 +1,11 @@
 using System.Text;
 using System.Diagnostics;
-using System.IO;
 
-namespace CodeReviewApi;
+namespace CodeReviewApi.Services;
 
 public class GitDiffUtilities
 {
-    public static List<GitCommitFilePayload> CreateGitDiffCollectionPayload(string gitStagedDiffFile)
+    public static List<CodeReviewApi.Models.GitCommitFilePayload> CreateGitDiffCollectionPayload(string gitStagedDiffFile)
     {
         //Extract gitStagedDiffFile into a String
         string fullDiffContent = System.IO.File.ReadAllText(gitStagedDiffFile);
@@ -14,26 +13,26 @@ public class GitDiffUtilities
         //Split into a string[] seperated by files changed
         string[] files = GitDiffUtilities.ExtractMultipleFiles(fullDiffContent);
             
-        List<GitCommitFilePayload> gitDiffCollectionPayload = new List<GitCommitFilePayload>();
+        List<CodeReviewApi.Models.GitCommitFilePayload> gitDiffCollectionPayload = new List<CodeReviewApi.Models.GitCommitFilePayload>();
             
         foreach (string file in files)
         {
             // create Before, 
             string beforeContent = GitDiffUtilities.ExtractBeforeAfterContent(file, isBefore: true);
             string beforeFileName = GitDiffUtilities.ExtractFileNameFromDiff(file, isBefore: true);
-            FilePayload beforeFileObject = new FilePayload(beforeContent, beforeFileName, null);
+            CodeReviewApi.Models.FilePayload beforeFileObject = new CodeReviewApi.Models.FilePayload(beforeContent, beforeFileName, null);
 
             // create After, 
             string afterContent = GitDiffUtilities.ExtractBeforeAfterContent(file, isBefore: false);
             string afterFileName = GitDiffUtilities.ExtractFileNameFromDiff(file, isBefore: false);
-            FilePayload afterFileObject = new FilePayload(afterContent, null, afterFileName);
+            CodeReviewApi.Models.FilePayload afterFileObject = new CodeReviewApi.Models.FilePayload(afterContent, null, afterFileName);
                 
             // create Inline,
             string inlineFile = GitDiffUtilities.ExtractInlineContent(file);
-            FilePayload inlineFileObject = new FilePayload(inlineFile, beforeFileName, afterFileName);
+            CodeReviewApi.Models.FilePayload inlineFileObject = new CodeReviewApi.Models.FilePayload(inlineFile, beforeFileName, afterFileName);
 
             // create gitCommitFilePayload object 
-            var gitCommitFilePayload = new GitCommitFilePayload(
+            var gitCommitFilePayload = new CodeReviewApi.Models.GitCommitFilePayload(
                 inlineDiff: inlineFileObject,
                 beforeContent: beforeFileObject,
                 afterContent: afterFileObject

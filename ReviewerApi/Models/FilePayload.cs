@@ -1,4 +1,4 @@
-namespace CodeReviewApi;
+namespace CodeReviewApi.Models;
 
 public class FilePayload
 {

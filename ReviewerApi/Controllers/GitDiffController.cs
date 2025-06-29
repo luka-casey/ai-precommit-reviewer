@@ -10,7 +10,7 @@ public class GitDiffController : ControllerBase
     public IActionResult GetDiff()
     {
         // Update git Staged Diff file
-        GitDiffUtilities.WriteStagedDiffToFile();
+        CodeReviewApi.Services.GitDiffUtilities.WriteStagedDiffToFile();
         
         // macOS location
         const string gitStagedDiffFile = "/tmp/git_staged_diff.txt";
@@ -20,8 +20,7 @@ public class GitDiffController : ControllerBase
 
         try
         {
-            List<GitCommitFilePayload> gitDiffCollectionPayload = GitDiffUtilities.CreateGitDiffCollectionPayload(gitStagedDiffFile);
-
+            List<CodeReviewApi.Models.GitCommitFilePayload> gitDiffCollectionPayload = CodeReviewApi.Services.GitDiffUtilities.CreateGitDiffCollectionPayload(gitStagedDiffFile);
             return Ok(gitDiffCollectionPayload); 
         }
         catch (Exception ex)
