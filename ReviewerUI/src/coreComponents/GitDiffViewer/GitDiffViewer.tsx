@@ -24,15 +24,14 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
   const [comment, setComment] = useState<string>("");
   const [preComment, setPreComment] = useState<string>("");
 
+  const toggleMinimize = () => setMinimized(prev => !prev);
+
   const sendToAi = (body: string) => {
     setLoading(true);
     setPreComment(comment)
 
     getAiResponseMessage({ Code: body, GptModel: aiModel, Comment: comment })
-      .then(r => {
-        setResponse(r.choices?.[0]?.message?.content || "")
-        
-      })
+      .then(r => setResponse(r.choices?.[0]?.message?.content || ""))
       .catch(console.error)
       .finally(() => setLoading(false));
   };
@@ -42,22 +41,11 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
     setAIModel(selectedValue);
   };
 
-  const toggleMinimize = () => setMinimized(prev => !prev);
-
-  const filePath = file.afterContent.afterFileName
-    ?? file.beforeContent.beforeFileName
-    ?? 'Unknown';
-
-  const fileName = file.afterContent.afterFileName?.split('/').pop()
-    ?? file.beforeContent.beforeFileName?.split('/').pop()
-    ?? 'Unknown';
-
   return (
     <div style={{display: 'flex', flexWrap: 'wrap'}}>
       <div className="gitDiffViewer">
         <DiffHeader
-          filePath={filePath}
-          fileName={fileName}
+          file={file}
           minimized={minimized}
           onToggleMinimize={toggleMinimize}
           onToggleView={onToggle}

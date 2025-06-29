@@ -1,16 +1,20 @@
 import React from 'react';
 import { AlignJustify, ChevronDown, ChevronUp, Rows2 } from 'lucide-react';
+import type { GitCommitFilePayload } from '../../requestInterfaces/RequestInterfaces';
 
 interface DiffHeaderProps {
-  fileName: string;
-  filePath: string;
+  file: GitCommitFilePayload;
   minimized: boolean;
   onToggleMinimize: () => void;
   onToggleView: () => void;
   showInline: boolean;
 }
 
-export const DiffHeader: React.FC<DiffHeaderProps> = ({fileName, filePath, minimized, showInline, onToggleMinimize, onToggleView}) => {
+export const DiffHeader: React.FC<DiffHeaderProps> = ({file, minimized, showInline, onToggleMinimize, onToggleView}) => {
+
+  const filePath = file.afterContent.afterFileName ?? file.beforeContent.beforeFileName ?? 'Unknown';
+  const fileName = file.afterContent.afterFileName?.split('/').pop() ?? file.beforeContent.beforeFileName?.split('/').pop() ?? 'Unknown';
+
   return (
     <div className="diff-header">
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
