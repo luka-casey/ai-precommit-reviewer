@@ -12,6 +12,7 @@ A developer tool that attempts to integrate LLM code reviews into your workflow,
 
 ## Prerequisites
 
+- Created for MacOS
 - [.NET SDK](https://dotnet.microsoft.com/download) 
 - [Node.js](https://nodejs.org/) 
 - An [OpenAI API key](https://platform.openai.com/api-keys)  
