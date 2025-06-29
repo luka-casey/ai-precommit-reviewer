@@ -2,7 +2,7 @@ namespace CodeReviewApi.Services;
 
 public class OpenAiApiService
 {
-    public static string ValidateModel(string model) =>
+    public static string ValidateModel(string? model) =>
         model switch
         {
             "gpt-3.5-turbo" => "gpt-3.5-turbo",

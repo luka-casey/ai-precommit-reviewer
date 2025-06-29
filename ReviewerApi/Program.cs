@@ -2,9 +2,14 @@ using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Load OpenAI API key from config
+// Clear default configuration sources and add your custom one
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("Configuration/appsettings.json", optional: false, reloadOnChange: true);
+
+// Now you can safely access config values
 var openAiKey = builder.Configuration["OpenAI:ApiKey"];
-if (string.IsNullOrWhiteSpace(openAiKey) || openAiKey == "dummy")
+if (string.IsNullOrWhiteSpace(openAiKey))
 {
     throw new Exception("OpenAI API key is missing or invalid.");
 }
