@@ -141,22 +141,20 @@ public class GitDiffUtilities
     /// Runs 'git diff --cached > /tmp/git_staged_diff.txt'
     /// This command is what updates the 'git_staged_diff' file based on your staged changes
     /// </summary>
-    public static void WriteStagedDiffToFile(string? outputPath = null)
+    public static string CreateGitStagedDiffFile(string? outputPath = null)
     {
         // Detect OS and set default output path
         if (string.IsNullOrEmpty(outputPath))
         {
+            string fileName = "git_staged_diff.txt";
+            
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                outputPath = Path.Combine(Path.GetTempPath(), "git_staged_diff_windows.txt");
+                outputPath = Path.Combine(Path.GetTempPath(), fileName);
             }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                outputPath = "/tmp/git_staged_diff_linux.txt";
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                outputPath = "/tmp/git_staged_diff_mac.txt";
+                outputPath = $"/tmp/{fileName}";
             }
             else
             {
@@ -181,6 +179,8 @@ public class GitDiffUtilities
         process.WaitForExit();
 
         File.WriteAllText(outputPath, output);
+
+        return outputPath;
     }
 
     

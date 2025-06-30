@@ -9,11 +9,8 @@ public class GitDiffController : ControllerBase
     [HttpGet]
     public IActionResult GetDiff()
     {
-        // Update git Staged Diff file
-        CodeReviewApi.Services.GitDiffUtilities.WriteStagedDiffToFile();
-        
-        // macOS location
-        const string gitStagedDiffFile = "/tmp/git_staged_diff.txt";
+        // Create git Staged Diff file
+        string gitStagedDiffFile = CodeReviewApi.Services.GitDiffUtilities.CreateGitStagedDiffFile();
         
         if (!System.IO.File.Exists(gitStagedDiffFile))
             return NotFound($"The gitStagedDiffFile was not found at location {gitStagedDiffFile}");
