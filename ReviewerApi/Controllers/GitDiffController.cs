@@ -9,7 +9,6 @@ public class GitDiffController : ControllerBase
     [HttpGet]
     public IActionResult GetDiff()
     {
-        // Create git Staged Diff file
         string gitStagedDiffFile = CodeReviewApi.Services.GitDiffUtilities.CreateGitStagedDiffFile();
         
         if (!System.IO.File.Exists(gitStagedDiffFile))
