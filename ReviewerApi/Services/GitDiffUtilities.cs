@@ -1,5 +1,6 @@
 using System.Text;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace CodeReviewApi.Services;
 
@@ -140,8 +141,29 @@ public class GitDiffUtilities
     /// Runs 'git diff --cached > /tmp/git_staged_diff.txt'
     /// This command is what updates the 'git_staged_diff' file based on your staged changes
     /// </summary>
-    public static void WriteStagedDiffToFile(string outputPath = "/tmp/git_staged_diff.txt")
+    public static void WriteStagedDiffToFile(string? outputPath = null)
     {
+        // Detect OS and set default output path
+        if (string.IsNullOrEmpty(outputPath))
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                outputPath = Path.Combine(Path.GetTempPath(), "git_staged_diff_windows.txt");
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                outputPath = "/tmp/git_staged_diff_linux.txt";
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                outputPath = "/tmp/git_staged_diff_mac.txt";
+            }
+            else
+            {
+                throw new PlatformNotSupportedException("Unsupported OS platform");
+            }
+        }
+
         var process = new Process
         {
             StartInfo = new ProcessStartInfo
@@ -155,12 +177,12 @@ public class GitDiffUtilities
         };
 
         process.Start();
-
         string output = process.StandardOutput.ReadToEnd();
         process.WaitForExit();
 
         File.WriteAllText(outputPath, output);
     }
+
     
     /// <summary>
     /// Turns your git_staged_diff.txt into a string[] seperated by code file change
