@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
+using CodeReviewApi.Models;
+using CodeReviewApi.Commands.CodeReview;
 
 namespace CodeReviewApi.Controllers;
 
@@ -7,38 +8,16 @@ namespace CodeReviewApi.Controllers;
 [Route("[controller]")]
 public class CodeReviewController : ControllerBase
 {
-    private readonly HttpClient _openAiClient;
+    private readonly CodeReviewCommandHandler _handler;
 
-    public CodeReviewController(IHttpClientFactory httpClientFactory)
+    public CodeReviewController(CodeReviewCommandHandler handler)
     {
-        _openAiClient = httpClientFactory.CreateClient("OpenAIClient");
+        _handler = handler;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Review([FromBody] CodeReviewApi.Models.CodeReviewRequest request)
+    public async Task<IActionResult> Review([FromBody] CodeReviewRequest request)
     {
-        string prompt;
-        if (String.IsNullOrEmpty(request.Comment))
-        {
-            prompt = $"Please review the following code. Avoid suggesting inconsequential changes and keep responses short where there is not anything to change :\n\n{request.Code}";
-        }
-        else
-        {
-            prompt = $"{request.Comment} :\n\n{request.Code}";
-        }
-        
-        var body = new
-        {
-            model = CodeReviewApi.Services.OpenAiApiService.ValidateModel(request.GptModel), 
-            messages = new[]
-            {
-                new { role = "user", content = prompt }
-            }
-        };
-
-        var response = await _openAiClient.PostAsJsonAsync("v1/chat/completions", body);
-        var json = await response.Content.ReadAsStringAsync();
-
-        return Ok(JsonDocument.Parse(json));
+        return Ok(await _handler.Handle(new CodeReviewCommand(request)));
     }
 }

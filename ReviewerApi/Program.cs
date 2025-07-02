@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using CodeReviewApi.Commands.CodeReview;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,8 @@ builder.Services.AddCors(options =>
 // Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<CodeReviewCommandHandler>();
 
 builder.Services.AddControllers();
 

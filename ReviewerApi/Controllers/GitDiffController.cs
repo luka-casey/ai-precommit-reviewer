@@ -1,3 +1,4 @@
+using CodeReviewApi.Commands.GetDiff;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeReviewApi.Controllers;
@@ -7,11 +8,5 @@ namespace CodeReviewApi.Controllers;
 public class GitDiffController : ControllerBase
 {
     [HttpGet]
-    public IActionResult GetDiff()
-    {
-        string gitStagedDiffFile = CodeReviewApi.Services.GitDiffUtilities.CreateGitStagedDiffFile();
-        List<CodeReviewApi.Models.GitCommitFilePayload> gitDiffCollectionPayload = CodeReviewApi.Services.GitDiffUtilities.CreateGitDiffCollectionPayload(gitStagedDiffFile);
-        
-        return Ok(gitDiffCollectionPayload); 
-    }
+    public IActionResult GetDiff() => Ok(new GitDiffCommandHandler().Handle(new GitDiffCommand()));
 }
