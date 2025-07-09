@@ -1,4 +1,5 @@
 import React from 'react';
+import { IconButton, Tooltip, Box, Typography } from '@mui/material';
 import { AlignJustify, ChevronDown, ChevronUp, Rows2 } from 'lucide-react';
 import type { GitCommitFilePayload } from '../../requestInterfaces/RequestInterfaces';
 
@@ -10,37 +11,40 @@ interface DiffHeaderProps {
   showInline: boolean;
 }
 
-export const DiffHeader: React.FC<DiffHeaderProps> = ({file, minimized, showInline, onToggleMinimize, onToggleView}) => {
-
+export const DiffHeader: React.FC<DiffHeaderProps> = ({ file, minimized, showInline, onToggleMinimize, onToggleView }) => {
   const filePath = file.afterContent.afterFileName ?? file.beforeContent.beforeFileName ?? 'Unknown';
   const fileName = file.afterContent.afterFileName?.split('/').pop() ?? file.beforeContent.beforeFileName?.split('/').pop() ?? 'Unknown';
 
   return (
-    <div className="diff-header">
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      p={2}
+      borderBottom="1px solid #ccc"
+    >
+      <Box>
+        <Typography variant="subtitle1" fontWeight="bold" color='white'>
+          {fileName}
+        </Typography>
+        <Typography variant="caption" color="white">
+          {filePath}
+        </Typography>
+      </Box>
 
-        <div>
-          <h3 style={{ margin: '0px' }}>{fileName}</h3>
-          <div style={{ fontSize: '12px' }}>{filePath}</div>
-        </div>
+      <Box display="flex" gap={1}>
+        <Tooltip title="Toggle diff view">
+          <IconButton onClick={onToggleView} size="small">
+            {showInline ? <AlignJustify color='white' size={20} /> : <Rows2 color='white' size={20} />}
+          </IconButton>
+        </Tooltip>
 
-        <div style={{ display: 'flex', gap: '10px' }}>
-          {/* Toggle View */}
-          <div className="controls" title="Toggle diff view" style={{display: 'flex', justifyContent: 'flex-end', height: 'fit-content', borderRadius: '50px'}}>
-            <button onClick={onToggleView} className="inlineButton" style={{ display: 'flex', padding: '9px' }}>
-              {showInline ? <AlignJustify /> : <Rows2 />}
-            </button>
-          </div>
-
-          {/* Minimize */}
-          <div title="Expand / Minimize card" style={{display: 'flex', justifyContent: 'flex-end', height: 'fit-content',borderRadius: '50px',}}>
-            <button onClick={onToggleMinimize} className="inlineButton" style={{ display: 'flex', padding: '9px' }}>
-              {minimized ? <ChevronDown size={25} /> : <ChevronUp size={25} />}
-            </button>
-          </div>
-        </div>
-        
-      </div>
-    </div>
+        <Tooltip title="Expand / Minimize card">
+          <IconButton onClick={onToggleMinimize} size="small">
+            {minimized ? <ChevronDown color='white' size={20} /> : <ChevronUp color='white' size={20} />}
+          </IconButton>
+        </Tooltip>
+      </Box>
+    </Box>
   );
 };
