@@ -16,10 +16,10 @@ export const UnifiedDiffView: React.FC<UnifiedDiffViewProps> = ({mode, before, a
   if (mode === 'side-by-side' && before && after) {
     return (
       <>
-        <section className="before-diff">
+        <section>
           <DiffBlock text={before.body} diffType={1} />
         </section>
-        <section className="after-diff">
+        <section>
           <DiffBlock text={after.body} diffType={2} />
         </section>
       </>
