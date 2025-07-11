@@ -21,7 +21,7 @@ export const DiffHeader: React.FC<DiffHeaderProps> = ({ file, minimized, showInl
       justifyContent="space-between"
       alignItems="center"
       p={2}
-      borderBottom="1px solid #ccc"
+      padding="10px"
     >
       <Box>
         <Typography variant="subtitle1" fontWeight="bold" color='white'>

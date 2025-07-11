@@ -1,10 +1,10 @@
-import './GitDiffViewerStyles.css'
+import './GitDiffViewerStyles.css';
 import React, { useState } from 'react';
 import { getAiResponseMessage } from '../../clients/Clients';
 import { DiffHeader } from '../DiffHeader/DiffHeader';
 import { AiResponse } from '../AiResponse/AiResponse';
 import { UnifiedDiffView } from '../UnifiedDiffView/UnifiedDiffView';
-import { type SelectChangeEvent } from '@mui/material';
+import { type SelectChangeEvent, Box, Stack, Paper } from '@mui/material';
 import type { GitCommitFilePayload } from '../../requestInterfaces/RequestInterfaces';
 import { ModelDropDown } from '../ModelDropDown/ModelDropDown';
 import { SendToAiButton } from '../SendToAiBitton/SendToAiButton';
@@ -28,7 +28,7 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
 
   const sendToAi = (body: string) => {
     setLoading(true);
-    setPreComment(comment)
+    setPreComment(comment);
 
     getAiResponseMessage({ Code: body, GptModel: aiModel, Comment: comment })
       .then(r => setResponse(r.choices?.[0]?.message?.content || ""))
@@ -37,13 +37,12 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    const selectedValue = event.target.value ;
-    setAIModel(selectedValue);
+    setAIModel(event.target.value);
   };
 
   return (
-    <div style={{display: 'flex', flexWrap: 'wrap'}}>
-      <div className="gitDiffViewer">
+    <Box display="flex" flexWrap="wrap" gap={2}>
+      <Paper elevation={3} sx={{ flex: 1, p: 2, minWidth: '50%', maxWidth: '100%', backgroundColor: '#333333', borderRadius: '20px' }}>
         <DiffHeader
           file={file}
           minimized={minimized}
@@ -54,24 +53,41 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
 
         {!minimized && (
           <>
-            {showInline
-              ? <UnifiedDiffView mode={'inline'} inlineDiff={file.inlineDiff} /> 
-              : <UnifiedDiffView mode={'side-by-side'} before={file.beforeContent} after={file.afterContent} /> 
-            }
+            {showInline ? (
+              <UnifiedDiffView mode="inline" inlineDiff={file.inlineDiff} />
+            ) : (
+              <UnifiedDiffView
+                mode="side-by-side"
+                before={file.beforeContent}
+                after={file.afterContent}
+              />
+            )}
 
-            <div className='actionComponentsContainer'>
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={2}
+              alignItems="flex-start"
+              mt={2}
+              className="actionComponentsContainer"
+            >
               <ModelDropDown aiModel={aiModel} handleChange={handleChange} />
               <TextInput text={comment} setText={setComment} />
-              <SendToAiButton isInline={showInline} sendToAi={sendToAi} file={file} loading={loading} />
-            </div>
-
+              <SendToAiButton
+                isInline={showInline}
+                sendToAi={sendToAi}
+                file={file}
+                loading={loading}
+              />
+            </Stack>
           </>
         )}
-      </div>
-      
+      </Paper>
+
       {!minimized && (
-      <AiResponse comment={preComment} response={response}/>
+        <Box flex={1} minWidth="35%">
+          <AiResponse comment={preComment} response={response} />
+        </Box>
       )}
-      </div>
+    </Box>
   );
 };
