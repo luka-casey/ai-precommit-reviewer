@@ -12,7 +12,7 @@ A developer tool that attempts to integrate LLM code reviews into your workflow,
 
 ## Prerequisites
 
-- Cross-platform support: Windows, macOS, and Linux
+- Cross-platform support: Windows, macOS, Linux
 - [.NET SDK](https://dotnet.microsoft.com/download) 
 - [Node.js](https://nodejs.org/) 
 - An [OpenAI API key](https://platform.openai.com/api-keys)  
