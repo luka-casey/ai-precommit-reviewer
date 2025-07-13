@@ -1,6 +1,6 @@
 # ai-precommit-reviewer
 
-A developer tool that attempts to integrate LLM code reviews into your workflow, helping you catch and improve issues before they ever reach a human reviewer.
+A dev tool that attempts to integrate LLM code reviews into your workflow, helping you catch and improve issues before they ever reach a human reviewer.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ecbdbb89-07d0-463e-ab2e-8743f6d24d26" alt="ai-precommit-reviewer screenshot" width="80%">
