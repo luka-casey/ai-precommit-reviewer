@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useTypewriter } from 'react-simple-typewriter';
-import './AiResponseStyles.css'
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
+import './AiResponseStyles.css';
 
 interface AiResponseProps {
   comment: string;
@@ -9,11 +13,11 @@ interface AiResponseProps {
   typeSpeed?: number;
 }
 
-export const AiResponse: React.FC<AiResponseProps> = ({comment, response }) => {
+export const AiResponse: React.FC<AiResponseProps> = ({ comment, response }) => {
   const [showComment, setShowComment] = useState<boolean>(false);
 
-  const delaySpeed: number = 0
-  const typeSpeed: number = 1
+  const delaySpeed: number = 0;
+  const typeSpeed: number = 1;
 
   useEffect(() => {
     if (!comment) return;
@@ -23,20 +27,32 @@ export const AiResponse: React.FC<AiResponseProps> = ({comment, response }) => {
   }, [comment]);
 
   return (
-    <div className='AiResponseContainer'>
-      <div className="AiResponse">
+    <Container className="AiResponseContainer">
+      <Box className="AiResponse">
         {comment && (
-          <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-            <div className={showComment ? 'fade-in' : ''} style={{backgroundColor: '#4d4d4d', borderRadius: 10, opacity: showComment ? 1 : 0}}>
-              <p style={{ textAlign: 'end', color: '#acacac', padding: 8, margin: 6,}}>
+          <Box display="flex" flexDirection="row-reverse">
+            <Paper
+              elevation={3}
+              className={showComment ? 'fade-in' : ''}
+              sx={{
+                backgroundColor: '#4d4d4d',
+                borderRadius: 2,
+                opacity: showComment ? 1 : 0,
+                maxWidth: '80%',
+              }}
+            >
+              <Typography
+                variant="body2"
+                sx={{ textAlign: 'end', color: '#acacac', padding: 1, margin: 1 }}
+              >
                 {comment}
-              </p>
-            </div>
-          </div>
+              </Typography>
+            </Paper>
+          </Box>
         )}
         <TypewriterMarkdown key={response} text={response} typeSpeed={typeSpeed} delaySpeed={delaySpeed} />
-      </div>
-    </div>
+      </Box>
+    </Container>
   );
 };
 
@@ -46,7 +62,6 @@ interface TypewriterMarkdownProps {
   delaySpeed: number;
 }
 
-// prevents re-render when a parent re-renders
 const typedResponses = new Set<string>();
 
 const TypewriterMarkdown: React.FC<TypewriterMarkdownProps> = ({ text, typeSpeed, delaySpeed }) => {

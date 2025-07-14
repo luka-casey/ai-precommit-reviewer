@@ -5,7 +5,7 @@ import { DiffHeader } from '../DiffHeader/DiffHeader';
 import { AiResponse } from '../AiResponse/AiResponse';
 import { UnifiedDiffView } from '../UnifiedDiffView/UnifiedDiffView';
 import { type SelectChangeEvent, Box, Stack, Paper } from '@mui/material';
-import type { GitCommitFilePayload } from '../../requestInterfaces/RequestInterfaces';
+import type { GitCommitFilePayload } from '../../Models/ApiModels';
 import { ModelDropDown } from '../ModelDropDown/ModelDropDown';
 import { SendToAiButton } from '../SendToAiBitton/SendToAiButton';
 import { TextInput } from '../TextInput/TextInput';

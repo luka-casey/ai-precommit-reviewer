@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import type { GitCommitFilePayload } from '../requestInterfaces/RequestInterfaces';
+import type { GitCommitFilePayload } from '../Models/ApiModels';
 import { GitDiffViewer } from '../coreComponents/GitDiffViewer/GitDiffViewer';
 import { fetchGitDiff } from '../clients/Clients';
 

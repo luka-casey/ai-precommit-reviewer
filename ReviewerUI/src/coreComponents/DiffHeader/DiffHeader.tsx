@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton, Tooltip, Box, Typography } from '@mui/material';
 import { AlignJustify, ChevronDown, ChevronUp, Rows2 } from 'lucide-react';
-import type { GitCommitFilePayload } from '../../requestInterfaces/RequestInterfaces';
+import type { GitCommitFilePayload } from '../../Models/ApiModels';
 
 interface DiffHeaderProps {
   file: GitCommitFilePayload;

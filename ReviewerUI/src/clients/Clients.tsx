@@ -1,6 +1,6 @@
 import type OpenAI from "openai";
-import type { CodeReviewRequest } from "../requestInterfaces/RequestInterfaces";
-import type { GitCommitFilePayload } from "../requestInterfaces/RequestInterfaces";
+import type { CodeReviewRequest } from "../Models/ApiModels";
+import type { GitCommitFilePayload } from "../Models/ApiModels";
 
 /**
  * Fetches the Git changes from the backend API and returns them as a formatted array.
