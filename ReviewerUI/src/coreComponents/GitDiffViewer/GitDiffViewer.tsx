@@ -9,6 +9,8 @@ import type { GitCommitFilePayload } from '../../Models/ApiModels';
 import { ModelDropDown } from '../ModelDropDown/ModelDropDown';
 import { SendToAiButton } from '../SendToAiBitton/SendToAiButton';
 import { TextInput } from '../TextInput/TextInput';
+import { stringToGptModel } from '../../HelperFunctions/GptModelHelperFunctions';
+import { GptModel } from '../../enums/GptModel';
 
 interface GitDiffViewerProps {
   file: GitCommitFilePayload;
@@ -20,7 +22,7 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
   const [minimized, setMinimized] = useState<boolean>(false);
   const [response, setResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [aiModel, setAIModel] = useState<string>('gpt-3.5-turbo');
+  const [aiModel, setAIModel] = useState<GptModel>(GptModel.Gpt35Turbo);
   const [comment, setComment] = useState<string>("");
   const [preComment, setPreComment] = useState<string>("");
 
@@ -37,7 +39,7 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAIModel(event.target.value);
+    setAIModel(stringToGptModel(event.target.value));
   };
 
   return (

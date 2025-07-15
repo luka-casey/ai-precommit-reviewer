@@ -1,3 +1,4 @@
+import type { GptModel } from "../enums/GptModel";
 
 export interface GitCommitFilePayload {
   inlineDiff: FilePayload;
@@ -7,7 +8,7 @@ export interface GitCommitFilePayload {
 
 export interface CodeReviewRequest {
   Code: string
-  GptModel: string
+  GptModel: GptModel
   Comment: string
 }
 

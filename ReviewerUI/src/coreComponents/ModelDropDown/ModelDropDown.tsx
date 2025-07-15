@@ -1,8 +1,10 @@
 import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } from '@mui/material';
+import { GptModel } from '../../enums/GptModel';
+import { gptModelToString } from '../../HelperFunctions/GptModelHelperFunctions';
 
 interface ModelDropDownProps {
-  aiModel: string;
+  aiModel: GptModel;
   handleChange: (event: SelectChangeEvent) => void;
 }
 
@@ -11,7 +13,7 @@ export const ModelDropDown: React.FC<ModelDropDownProps> = ({ aiModel, handleCha
     <div style={{marginRight: '20px'}}>
     <FormControl  variant="outlined" fullWidth style={{ minWidth: '120px' }}>
       <InputLabel id="my-select-label" style={{ color: 'white' }}>Model</InputLabel>
-      <Select labelId="my-select-label" value={aiModel} onChange={handleChange} label="Option"
+      <Select labelId="my-select-label" value={gptModelToString(aiModel)} onChange={handleChange} label="Option"
         sx={{
           color: 'white',
           '.MuiOutlinedInput-notchedOutline': {
@@ -28,8 +30,8 @@ export const ModelDropDown: React.FC<ModelDropDownProps> = ({ aiModel, handleCha
           },
         }}
       >
-        <MenuItem value="gpt-3.5-turbo">gpt-3.5-turbo</MenuItem>
-        <MenuItem value="gpt-4o-mini">gpt-4o-mini</MenuItem>
+        <MenuItem value={GptModel.Gpt35Turbo}>gpt-3.5-turbo</MenuItem>
+        <MenuItem value={GptModel.Gpt4OMini}>gpt-4o-mini</MenuItem>
       </Select>
     </FormControl>
     </div>
