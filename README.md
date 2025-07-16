@@ -57,7 +57,7 @@ cd ReviewerUI
 npm install
 ```
 
-**4. (Optional) Pre‑commit Hook**
+**4. Optional Pre‑commit Hook**
 - _(This creates a commandline hook that opens the app prior to a git commit.
 This is optional and has problems working in IDE's where the terminal may be read only.
 Recommended to be used in a non-inbuild terminal like iterm2)_
