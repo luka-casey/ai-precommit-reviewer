@@ -8,7 +8,7 @@ export interface GitCommitFilePayload {
 
 export interface CodeReviewRequest {
   Code: string
-  GptModel: GptModel
+  GptModel: string
   Comment: string
 }
 

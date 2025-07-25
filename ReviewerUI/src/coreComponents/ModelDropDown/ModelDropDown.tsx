@@ -30,8 +30,8 @@ export const ModelDropDown: React.FC<ModelDropDownProps> = ({ aiModel, handleCha
           },
         }}
       >
-        <MenuItem value={GptModel.Gpt35Turbo}>gpt-3.5-turbo</MenuItem>
-        <MenuItem value={GptModel.Gpt4OMini}>gpt-4o-mini</MenuItem>
+        <MenuItem value={gptModelToString(GptModel.Gpt35Turbo)}>gpt-3.5-turbo</MenuItem>
+        <MenuItem value={gptModelToString(GptModel.Gpt4OMini)}>gpt-4o-mini</MenuItem>
       </Select>
     </FormControl>
     </div>

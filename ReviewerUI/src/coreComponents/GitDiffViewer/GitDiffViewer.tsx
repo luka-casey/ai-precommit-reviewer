@@ -9,7 +9,7 @@ import type { GitCommitFilePayload } from '../../Models/ApiModels';
 import { ModelDropDown } from '../ModelDropDown/ModelDropDown';
 import { SendToAiButton } from '../SendToAiBitton/SendToAiButton';
 import { TextInput } from '../TextInput/TextInput';
-import { stringToGptModel } from '../../HelperFunctions/GptModelHelperFunctions';
+import { gptModelToString, stringToGptModel } from '../../HelperFunctions/GptModelHelperFunctions';
 import { GptModel } from '../../enums/GptModel';
 
 interface GitDiffViewerProps {
@@ -32,7 +32,7 @@ export const GitDiffViewer: React.FC<GitDiffViewerProps> = ({ file, showInline, 
     setLoading(true);
     setPreComment(comment);
 
-    getAiResponseMessage({ Code: body, GptModel: aiModel, Comment: comment })
+    getAiResponseMessage({ Code: body, GptModel: gptModelToString(aiModel), Comment: comment })
       .then(r => setResponse(r.choices?.[0]?.message?.content || ""))
       .catch(console.error)
       .finally(() => setLoading(false));
