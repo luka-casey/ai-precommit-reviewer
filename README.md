@@ -6,7 +6,7 @@ A dev tool that attempts to integrate LLM code reviews into your workflow, helpi
   <img src="https://github.com/user-attachments/assets/ecbdbb89-07d0-463e-ab2e-8743f6d24d26" alt="ai-precommit-reviewer screenshot" width="80%">
 </p>
 
-https://github.com/user-attachments/assets/69d95d44-5e6a-4a86-b96a-e3da3b72380b
+https://github.com/user-attachments/assets/1c495f4c-6df7-4368-a73e-fdbf432a640c
 
 - Organises your git staged changes into swagger-style collapsable rows that can be sent for AI review.
 - Press send without a comment for a general review, or leave a comment for specificity. 
