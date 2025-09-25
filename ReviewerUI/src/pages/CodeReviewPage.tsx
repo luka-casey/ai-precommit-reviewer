@@ -20,6 +20,8 @@ export const CodeReviewPage: React.FC = () => {
   }));
 
 };
+
+//TODO Fix bug where panels are rendering incorrectly 
   return (
     <div style={{ padding: '1rem' }}> 
       {diff.map((file, index) => (
